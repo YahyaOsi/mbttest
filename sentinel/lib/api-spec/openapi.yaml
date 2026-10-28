@@ -1,0 +1,646 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 1.0.0
+  description: Sentinel Solana trading control API
+servers:
+  - url: /api
+paths:
+  /sentinel/diagnostics:
+    get:
+      operationId: getSentinelDiagnostics
+      responses:
+        "200":
+          description: Owner-only durable funnel, execution quality and risk snapshot
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SentinelDiagnostics"
+  /auth/session:
+    get:
+      operationId: getOwnerSession
+      responses:
+        "200":
+          description: Password-lock status
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/OwnerSession" }
+  /auth/login:
+    post:
+      operationId: unlockOwner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PasswordInput" }
+      responses:
+        "200":
+          description: Owner session established with secure HTTP-only cookie
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/OwnerSession" }
+  /auth/logout:
+    post:
+      operationId: lockOwner
+      responses:
+        "200":
+          description: Session revoked; worker continues independently
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ActionResult" }
+  /sentinel/wallet/verify:
+    post:
+      operationId: verifyOwnerWallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/WalletConfirmation" }
+      responses:
+        "200":
+          description: Confirm configured burner while paused with no live exposure
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ActionResult" }
+  /healthz:
+    get:
+      operationId: healthCheck
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HealthStatus" }
+  /sentinel/dashboard:
+    get:
+      operationId: getDashboard
+      responses:
+        "200":
+          description: Trading overview
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Dashboard" }
+  /sentinel/candidates:
+    get:
+      operationId: getCandidates
+      responses:
+        "200":
+          description: Live Solana market candidates
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Candidate" }
+  /sentinel/candidates/{mint}/analyze:
+    post:
+      operationId: analyzeToken
+      parameters:
+        - { name: mint, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: AI evidence assessment, not a probability of profit
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Candidate" }
+  /sentinel/positions:
+    get:
+      operationId: getPositions
+      responses:
+        "200":
+          description: Open and closed positions
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Position" }
+  /sentinel/positions/{id}/close:
+    post:
+      operationId: closePosition
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Exit attempted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ActionResult" }
+  /sentinel/wallet/refresh:
+    post:
+      operationId: refreshWalletBalances
+      responses:
+        "200":
+          description: Read-only on-chain balances reconciled with the position ledger; no trade submitted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ActionResult" }
+  /sentinel/activity:
+    get:
+      operationId: getActivity
+      responses:
+        "200":
+          description: Audit trail
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Activity" }
+  /sentinel/high-risk:
+    get:
+      operationId: getHighRiskStatus
+      responses:
+        "200":
+          description: High-risk strategy and independent Fomo data status
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HighRiskStatus" }
+  /sentinel/settings:
+    get:
+      operationId: getSettings
+      responses:
+        "200":
+          description: Risk settings
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TradingSettings" }
+    put:
+      operationId: updateSettings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TradingSettings" }
+      responses:
+        "200":
+          description: Settings saved
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TradingSettings" }
+  /sentinel/control:
+    post:
+      operationId: controlBot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BotCommand" }
+      responses:
+        "200":
+          description: Command applied
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ActionResult" }
+  /sentinel/scan:
+    post:
+      operationId: runScan
+      responses:
+        "200":
+          description: Scan completed
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ActionResult" }
+  /sentinel/connections:
+    get:
+      operationId: getConnections
+      responses:
+        "200":
+          description: Provider readiness, no secrets
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/ConnectionStatus" }
+  /sentinel/rpc:
+    get:
+      operationId: getRpcConnection
+      responses:
+        "200":
+          description: Masked RPC configuration; never contains the endpoint URL
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RpcConnectionStatus" }
+    put:
+      operationId: updateRpcConnection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RpcEndpointInput" }
+      responses:
+        "200":
+          description: Tested and saved; entries remain paused
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RpcConnectionStatus" }
+    delete:
+      operationId: resetRpcConnection
+      responses:
+        "200":
+          description: Tested environment fallback selected; entries remain paused
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RpcConnectionStatus" }
+  /sentinel/rpc/test:
+    post:
+      operationId: testRpcConnection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RpcEndpointInput" }
+      responses:
+        "200":
+          description: Read-only endpoint test; does not save or trade
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RpcProbeResult" }
+  /sentinel/setup:
+    get:
+      operationId: getSetup
+      responses:
+        "200":
+          description: Setup guide and mainnet blockers
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SetupGuide" }
+components:
+  schemas:
+    OwnerSession:
+      type: object
+      required: [authenticated, configured, minimumPasswordLength]
+      properties:
+        authenticated: { type: boolean }
+        configured: { type: boolean }
+        minimumPasswordLength: { type: integer }
+    PasswordInput:
+      type: object
+      required: [password]
+      properties:
+        password: { type: string, minLength: 1, maxLength: 256 }
+    WalletConfirmation:
+      type: object
+      required: [address]
+      properties:
+        address: { type: string, minLength: 32, maxLength: 44 }
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string }
+    RpcEndpointInput:
+      type: object
+      required: [url]
+      properties:
+        url: { type: string, minLength: 1, maxLength: 4096 }
+        additionalUrls:
+          type: array
+          maxItems: 5
+          items: { type: string, minLength: 1, maxLength: 4096 }
+    RpcProbeResult:
+      type: object
+      required: [success, message]
+      properties:
+        success: { type: boolean }
+        message: { type: string }
+    RpcConnectionStatus:
+      type: object
+      required: [source, configured, updatedAt, paused, canChange, encryptionReady, environmentAvailable, websocketAlerts, message]
+      properties:
+        source: { type: string, enum: [app, environment, public] }
+        configured: { type: boolean }
+        updatedAt: { type: [string, "null"], format: date-time }
+        paused: { type: boolean }
+        canChange: { type: boolean }
+        encryptionReady: { type: boolean }
+        environmentAvailable: { type: boolean }
+        websocketAlerts: { type: boolean }
+        endpoints:
+          type: array
+          items:
+            $ref: "#/components/schemas/RpcEndpointHealth"
+        message: { type: string }
+    RpcEndpointHealth:
+      type: object
+      required: [id, healthy, latencyMs, failures, retryAt, role]
+      properties:
+        id: { type: string }
+        healthy: { type: boolean }
+        latencyMs: { type: [number, "null"] }
+        failures: { type: integer }
+        retryAt: { type: [string, "null"] }
+        role: { type: string }
+    HighRiskLeader:
+      type: object
+      required: [wallet, handle, rank, losingCopies, demoted, allocatedUsd]
+      properties:
+        wallet: { type: string }
+        handle: { type: string }
+        rank: { type: integer }
+        losingCopies: { type: integer }
+        demoted: { type: boolean }
+        allocatedUsd: { type: number }
+    HighRiskStatus:
+      type: object
+      required: [source, status, updatedAt, positionSizeUsd, leaders, notices]
+      properties:
+        source: { type: string }
+        status: { type: string }
+        updatedAt: { type: [string, "null"] }
+        positionSizeUsd: { type: number }
+        leaders:
+          type: array
+          items: { $ref: "#/components/schemas/HighRiskLeader" }
+        notices:
+          type: array
+          items: { type: string }
+    CopyTarget:
+      type: object
+      required: [platform, username, wallet]
+      properties:
+        platform: { type: string, enum: [wallet, x, fomo] }
+        username: { type: string, maxLength: 64 }
+        wallet: { type: string, maxLength: 44 }
+    TradingSettings:
+      type: object
+      required: [mode, paperBalanceUsd, positionSizeUsd, maxPositions, maxEntriesPerDay, dailyLossLimitUsd, minLiquidityUsd, minVolumeUsd, minAgeMinutes, maxTopHolderPct, maxPriceImpactPct, slippageBps, emergencySlippageBps, emergencyMaxPriceImpactPct, stopLossPct, takeProfitPct, secondTakeProfitPct, firstSellPct, secondSellPct, trailingStopPct, exitStrategy, minAiScore, maxAiCallsPerDay, scanIntervalMinutes, aiIntervalMinutes, aiCacheMinutes, solReserve, maxHoldMinutes, acknowledgeRisk, launchpadCurvesEnabled, curveMinLiquidityUsd, curveMinAgeMinutes]
+      properties:
+        copyTradingEnabled: { type: boolean, default: false }
+        pumpHuntEnabled: { type: boolean, default: false, description: "Explicit aggressive Pump hunt preset; never changes owner run intent." }
+        readFailoverEnabled: { type: boolean, default: true }
+        jitoEnabled: { type: boolean, default: false }
+        jitoMaxTipPct: { type: number, minimum: 0, maximum: 1, default: 0.25 }
+        jitoMaxTipLamports: { type: integer, minimum: 0, maximum: 1000000, default: 100000 }
+        snipePriorityMultiplier: { type: number, minimum: 1, maximum: 5, default: 2 }
+        confidenceThreshold: { type: number, minimum: 35, maximum: 95, default: 80 }
+        normalEquityPct: { type: number, minimum: 1, maximum: 10, default: 8 }
+        snipeEquityPct: { type: number, minimum: 1, maximum: 15, default: 15 }
+        dailyLossEquityPct: { type: number, minimum: 1, maximum: 25, default: 20 }
+        retainedTokenPct: { type: number, minimum: 0, maximum: 1, default: 0.1 }
+        adaptiveExitsEnabled: { type: boolean, default: true }
+        earlyTakeProfitPct: { type: number, minimum: 30, maximum: 90, default: 60 }
+        earlySellPct: { type: number, minimum: 0, maximum: 50, default: 20 }
+        trackFomoHandles: { type: boolean, default: false, description: "Opt-in public FOMO rankings and X/FOMO handle targets; independent of manual wallet copy trading." }
+        copyTargets:
+          type: array
+          maxItems: 10
+          default: []
+          items: { $ref: "#/components/schemas/CopyTarget" }
+        riskMode: { type: string, enum: [conservative, crazy], default: conservative }
+        crazyStrategy: { type: string, enum: [all, sniper, momentum, dip, whale], default: all, description: "Legacy selectors remain accepted for compatibility. Crazy mode runs all four strategies together." }
+        crazyEquityPct: { type: number, minimum: 0.1, maximum: 20, default: 20 }
+        crazyMinLiquidityUsd: { type: number, minimum: 400, maximum: 100000000, default: 1000 }
+        crazyMinVolumeUsd: { type: number, minimum: 0, maximum: 100000000, default: 0, description: "Zero disables the 24-hour volume floor; recent buy activity and strategy signals are still required." }
+        crazyMaxPositions: { type: integer, minimum: 1, maximum: 5, default: 3 }
+        crazySlippageBps: { type: integer, minimum: 100, maximum: 1500, default: 1000 }
+        crazyTop10Pct: { type: number, minimum: 1, maximum: 40, default: 25 }
+        crazyWalletAllocationPct: { type: number, minimum: 1, maximum: 30, default: 20 }
+        crazyAcknowledged: { type: boolean, default: false }
+        mode: { type: string, enum: [paper, live] }
+        paperBalanceUsd: { type: number, minimum: 1, maximum: 100000 }
+        positionSizeUsd: { type: number, minimum: 0.5, maximum: 100 }
+        maxPositions: { type: integer, minimum: 1, maximum: 5 }
+        maxEntriesPerDay: { type: integer, minimum: 1, maximum: 20 }
+        dailyLossLimitUsd: { type: number, minimum: 0.1, maximum: 100 }
+        minLiquidityUsd: { type: number, minimum: 10000, maximum: 100000000 }
+        minVolumeUsd: { type: number, minimum: 1000, maximum: 100000000 }
+        minAgeMinutes: { type: integer, minimum: 30, maximum: 100000 }
+        maxTopHolderPct: { type: number, minimum: 1, maximum: 40 }
+        maxPriceImpactPct: { type: number, minimum: 0.1, maximum: 5 }
+        slippageBps: { type: integer, minimum: 10, maximum: 300 }
+        emergencySlippageBps: { type: integer, minimum: 10, maximum: 1000 }
+        emergencyMaxPriceImpactPct: { type: number, minimum: 0.1, maximum: 20 }
+        stopLossPct: { type: number, minimum: 1, maximum: 30 }
+        takeProfitPct: { type: number, minimum: 1, maximum: 500 }
+        secondTakeProfitPct: { type: number, minimum: 2, maximum: 1000 }
+        firstSellPct: { type: number, minimum: 10, maximum: 90 }
+        secondSellPct: { type: number, minimum: 0, maximum: 80 }
+        trailingStopPct: { type: number, minimum: 1, maximum: 30 }
+        exitStrategy: { type: string, enum: [full, staged, adaptive, moonbag] }
+        minAiScore: { type: integer, minimum: 60, maximum: 99 }
+        maxAiCallsPerDay: { type: integer, minimum: 0, maximum: 1440 }
+        scanIntervalMinutes: { type: integer, minimum: 1, maximum: 240 }
+        aiIntervalMinutes: { type: integer, minimum: 1, maximum: 1440 }
+        aiCacheMinutes: { type: integer, minimum: 1, maximum: 1440 }
+        solReserve: { type: number, minimum: 0.003, maximum: 1 }
+        maxHoldMinutes: { type: integer, minimum: 5, maximum: 1440 }
+        acknowledgeRisk: { type: boolean }
+        launchpadCurvesEnabled: { type: boolean }
+        curveMinLiquidityUsd: { type: number, minimum: 1000, maximum: 100000000 }
+        curveMinAgeMinutes: { type: integer, minimum: 1, maximum: 100000 }
+    BotCommand:
+      type: object
+      required: [action]
+      properties:
+        action: { type: string, enum: [start, pause, emergency, reset-paper] }
+    ActionResult:
+      type: object
+      required: [success, message]
+      properties:
+        success: { type: boolean }
+        message: { type: string }
+    Candidate:
+      type: object
+      required: [mint, symbol, name, priceUsd, liquidityUsd, volume24hUsd, change5mPct, change24hPct, ageMinutes, buys5m, sells5m, status, score, reasoning, risks, updatedAt, url, imageUrl, safetyChecked]
+      properties:
+        mint: { type: string }
+        symbol: { type: string }
+        name: { type: string }
+        imageUrl: { type: ["string", "null"] }
+        url: { type: string }
+        priceUsd: { type: number }
+        liquidityUsd: { type: number }
+        volume24hUsd: { type: number }
+        volume5mUsd: { type: [number, "null"] }
+        change5mPct: { type: number }
+        change24hPct: { type: number }
+        ageMinutes: { type: number }
+        buys5m: { type: integer }
+        sells5m: { type: integer }
+        status: { type: string, enum: [discovered, rejected, watching, eligible, error] }
+        pipelineStatus: { type: string, enum: [observed, awaiting-market, active-watch, eligible, rejected-permanent, order-attempted, filled] }
+        confidenceScore: { type: ["number", "null"] }
+        confidenceReasons: { type: array, items: { type: string } }
+        observedTop10Pct: { type: number }
+        score: { type: ["number", "null"] }
+        reasoning: { type: string }
+        risks: { type: array, items: { type: string } }
+        updatedAt: { type: string }
+        safetyChecked: { type: boolean }
+        launchpad: { type: ["string", "null"] }
+        venue: { type: ["string", "null"] }
+        discoverySource: { type: string }
+        marketDataStatus: { type: string, enum: [awaiting_market_data, market_data_available] }
+        missingMarketData:
+          type: array
+          items: { type: string, enum: [price, liquidity, volume, age, activity, priceChange] }
+        tokenProgram: { type: ["string", "null"] }
+        marketCapUsd: { type: ["number", "null"] }
+        organicScore: { type: ["number", "null"] }
+        flaggedSuspicious: { type: boolean }
+        poolAddress: { type: ["string", "null"] }
+        curveProgressPct: { type: number, minimum: 0, maximum: 100 }
+        creatorHoldingPct: { type: number, minimum: 0, maximum: 100 }
+        watchStartedAt: { type: ["string", "null"] }
+        watchExpiresAt: { type: ["string", "null"] }
+        permanentlyRejectedAt: { type: ["string", "null"] }
+        lastAiSweepAt: { type: ["string", "null"] }
+        aiSweepReason: { type: ["string", "null"] }
+        lpVerification:
+          type: object
+          required: [pool, program, protectedPct, verifiedAt]
+          properties:
+            pool: { type: string }
+            program: { type: string }
+            protectedPct: { type: number }
+            verifiedAt: { type: string }
+        launchpadVerification:
+          type: object
+          required: [program, pool, verifiedAt]
+          properties:
+            program: { type: string }
+            pool: { type: string }
+            verifiedAt: { type: string }
+            phase: { type: string, enum: [observed, active, graduated] }
+    Position:
+      type: object
+      required: [id, mint, symbol, mode, status, walletAddress, entryPriceUsd, currentPriceUsd, originalCostUsd, remainingCostUsd, originalCostSol, remainingCostSol, realizedPnlSol, quantity, realizedPnlUsd, unrealizedPnlUsd, pnlPct, openedAt, closedAt, stage, exitReason, txSignature]
+      properties:
+        id: { type: string }
+        mint: { type: string }
+        symbol: { type: string }
+        mode: { type: string, enum: [paper, live] }
+        status: { type: string, enum: [open, closed, pending, error, retained, transferred] }
+        walletAddress: { type: ["string", "null"] }
+        entryPriceUsd: { type: number }
+        currentPriceUsd: { type: number }
+        originalCostUsd: { type: number }
+        remainingCostUsd: { type: number }
+        originalCostSol: { type: number }
+        remainingCostSol: { type: number }
+        realizedPnlSol: { type: number }
+        quantity: { type: number }
+        realizedPnlUsd: { type: number }
+        unrealizedPnlUsd: { type: number }
+        pnlPct: { type: number }
+        openedAt: { type: string }
+        closedAt: { type: ["string", "null"] }
+        stage: { type: integer }
+        exitReason: { type: ["string", "null"] }
+        txSignature: { type: ["string", "null"] }
+        exitPlan:
+          type: object
+          required: [firstTargetPct, secondTargetPct, firstSellPct, secondSellPct, trailingStopPct]
+          properties:
+            earlyTargetPct: { type: number }
+            earlySellPct: { type: number }
+            adaptive: { type: boolean }
+            trailAfterEarly: { type: boolean }
+            firstTargetPct: { type: number }
+            secondTargetPct: { type: number }
+            firstSellPct: { type: number }
+            secondSellPct: { type: number }
+            trailingStopPct: { type: number }
+        firstTierDone: { type: boolean }
+        earlyTierDone: { type: boolean }
+        secondTierDone: { type: boolean }
+        fastCrazyExit: { type: boolean, description: "Half at +50% net SOL gain, then trail the remainder by 15%; protective exits can occur earlier." }
+        executionVenue: { type: string }
+        riskMonitoring: { type: string }
+        retainedQuantity: { type: number, description: "Currently held portion protected from every bot sell." }
+        externallyTransferredQuantity: { type: number }
+        walletSyncedAt: { type: string }
+    SentinelDiagnostics:
+      type: object
+      required: [generatedAt, rpc, risk, pipeline, funnel, recent]
+      properties:
+        generatedAt: { type: string }
+        rpc: { type: object, additionalProperties: true }
+        risk: { type: object, additionalProperties: true }
+        pipeline: { type: object, additionalProperties: true }
+        funnel: { type: array, items: { type: object, additionalProperties: true } }
+        recent: { type: array, items: { type: object, additionalProperties: true } }
+    Activity:
+      type: object
+      required: [id, time, level, category, message, mint]
+      properties:
+        id: { type: string }
+        time: { type: string }
+        level: { type: string, enum: [info, success, warning, error] }
+        category: { type: string }
+        message: { type: string }
+        mint: { type: ["string", "null"] }
+    EquityPoint:
+      type: object
+      required: [time, valueUsd]
+      properties:
+        time: { type: string }
+        valueUsd: { type: number }
+    Dashboard:
+      type: object
+      required: [mode, running, scanning, lastScanAt, nextScanAt, workerHeartbeatAt, scanIntervalSeconds, aiIntervalMinutes, aiCacheMinutes, lastAiAt, nextAiAt, cashSol, solPriceUsd, reserveSol, cashUsd, equityUsd, realizedPnlUsd, unrealizedPnlUsd, winRatePct, closedTrades, openPositions, candidatesScanned, aiCallsToday, aiCallLimit, dailyLossUsd, dailyLossLimitUsd, liveReady, walletAddress, blockers, equity, recentActivity, sourceStatus, lastError]
+      properties:
+        mode: { type: string, enum: [paper, live] }
+        running: { type: boolean }
+        scanning: { type: boolean }
+        entryBlocks:
+          type: array
+          items: { type: string }
+          description: "Temporary trade restrictions. They do not change the owner's running choice or stop market scanning."
+        lastScanAt: { type: ["string", "null"] }
+        nextScanAt: { type: ["string", "null"] }
+        workerHeartbeatAt: { type: ["string", "null"] }
+        scanIntervalSeconds: { type: integer }
+        aiIntervalMinutes: { type: integer }
+        aiCacheMinutes: { type: integer }
+        lastAiAt: { type: ["string", "null"] }
+        nextAiAt: { type: ["string", "null"] }
+        cashSol: { type: ["number", "null"] }
+        solPriceUsd: { type: ["number", "null"] }
+        reserveSol: { type: number }
+        cashUsd: { type: number }
+        equityUsd: { type: number }
+        realizedPnlUsd: { type: number }
+        unrealizedPnlUsd: { type: number }
+        winRatePct: { type: ["number", "null"] }
+        closedTrades: { type: integer }
+        openPositions: { type: integer }
+        candidatesScanned: { type: integer }
+        aiCallsToday: { type: integer }
+        aiCallLimit: { type: integer }
+        dailyLossUsd: { type: number }
+        dailyLossLimitUsd: { type: number }
+        liveReady: { type: boolean }
+        walletAddress: { type: ["string", "null"] }
+        blockers: { type: array, items: { type: string } }
+        equity: { type: array, items: { $ref: "#/components/schemas/EquityPoint" } }
+        recentActivity: { type: array, items: { $ref: "#/components/schemas/Activity" } }
+        sourceStatus: { type: string }
+        lastError: { type: ["string", "null"] }
+    ConnectionStatus:
+      type: object
+      required: [id, name, status, description, url, requiredForLive]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        status: { type: string, enum: [connected, available, missing, optional, error] }
+        description: { type: string }
+        url: { type: string }
+        requiredForLive: { type: boolean }
+    SetupStep:
+      type: object
+      required: [number, title, description, complete]
+      properties:
+        number: { type: integer }
+        title: { type: string }
+        description: { type: string }
+        complete: { type: boolean }
+    SetupGuide:
+      type: object
+      required: [steps, blockers, warnings, walletAddress, liveReady, boundWalletAddress, walletVerified]
+      properties:
+        boundWalletAddress: { type: ["string", "null"] }
+        walletVerified: { type: boolean }
+        steps: { type: array, items: { $ref: "#/components/schemas/SetupStep" } }
+        blockers: { type: array, items: { type: string } }
+        warnings: { type: array, items: { type: string } }
+        walletAddress: { type: ["string", "null"] }
+        liveReady: { type: boolean }
