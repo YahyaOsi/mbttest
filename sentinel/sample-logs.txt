@@ -1,0 +1,18 @@
+SANITIZED OPERATIONAL EXAMPLES
+
+Selected real logs observed during this handoff, not synthetic trade fills. Only timestamp and allowlisted RPC health fields are retained. No raw URLs, wallet addresses, signatures, provider credentials or request bodies are exported.
+
+2026-10-28T08:10:58.003Z {"event":"sentinel-rpc-balance","endpointId":"RPC 3","method":"getBalance","durationMs":2502,"outcome":"failure","fallbackAllowed":true}
+2026-10-28T08:11:00.236Z {"event":"sentinel-rpc-balance","endpointId":"RPC 2","method":"getBalance","durationMs":2232,"outcome":"success","fallback":true}
+2026-10-28T08:17:38.023Z {"event":"sentinel-rpc-balance","endpointId":"RPC 3","method":"getBalance","durationMs":2522,"outcome":"failure","fallbackAllowed":true}
+2026-10-28T08:17:40.514Z {"event":"sentinel-rpc-balance","endpointId":"RPC 4","method":"getBalance","durationMs":2493,"outcome":"success","fallback":true}
+2026-10-28T08:22:32.124Z {"event":"sentinel-rpc-balance","endpointId":"RPC 6","method":"getBalance","durationMs":125,"outcome":"success","fallback":true}
+
+Runtime warnings observed in API startup (verbatim warning text):
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+[DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+Verification-mode startup (expected, not an error):
+Read-only verification mode: background trading/AI worker is disabled.
+
+No raw failed-swap ledger/signature history is included. A wallet-RPC failure does not establish that a swap was submitted, failed on-chain or filled.
