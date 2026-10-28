@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Sentinel — Solana Trading"
+description = "A private Solana automated trading control center with live discovery, AI evaluations, paper trading, hard risk controls, and securely gated mainnet execution."
+version = "1.0.0"
+id = "artifacts/solana-sentinel"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18393
+
+[services.development]
+run = "pnpm --filter @workspace/solana-sentinel run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/solana-sentinel", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/solana-sentinel/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18393"
+BASE_PATH = "/"
