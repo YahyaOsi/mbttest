@@ -1,0 +1,330 @@
+# Source error / guard message inventory
+
+Literal messages, not a claim that every listed condition occurred. Interpolations are retained symbolically. Some SDK/provider errors originate externally.
+
+- `artifacts/api-server/src/index.ts:8` — PORT environment variable is required but was not provided.
+- `artifacts/api-server/src/index.ts:16` — Invalid PORT value: "${rawPort}"
+- `artifacts/api-server/src/lib/sentinel/ai-evidence.ts:18` — Fresh AI market evidence unavailable
+- `artifacts/api-server/src/lib/sentinel/ai-sweeps.ts:23` — Invalid AI sweep response
+- `artifacts/api-server/src/lib/sentinel/analysis.ts:53` — Fresh verified leader buy required.
+- `artifacts/api-server/src/lib/sentinel/analysis.ts:71` — Fresh SOL/USD reference missing for curve liquidity.
+- `artifacts/api-server/src/lib/sentinel/analysis.ts:77` — ${verified ? "Verified launchpad curve" : "No verified pre-migration curve; standard filters"}: ${gate.join(". ")}
+- `artifacts/api-server/src/lib/sentinel/analysis.ts:117` — Daily AI call budget exhausted.
+- `artifacts/api-server/src/lib/sentinel/analysis.ts:142` — AI returned invalid JSON. No entry authorized.
+- `artifacts/api-server/src/lib/sentinel/analysis.ts:147` — AI assessment failed schema validation. No entry authorized.
+- `artifacts/api-server/src/lib/sentinel/chain.ts:60` — Mainnet locked: ${b.join(" ")}
+- `artifacts/api-server/src/lib/sentinel/chain.ts:69` — DBC market pool does not match the independently verified mint pool.
+- `artifacts/api-server/src/lib/sentinel/chain.ts:75` — Entry route exceeds the pool-verification budget.
+- `artifacts/api-server/src/lib/sentinel/chain.ts:80` — DBC route mint/pool identity could not be verified.
+- `artifacts/api-server/src/lib/sentinel/chain.ts:97` — Holder concentration information unavailable.
+- `artifacts/api-server/src/lib/sentinel/chain.ts:130` — Largest non-pool token account holds ${topPct.toFixed(2)}% of supply, above your limit.
+- `artifacts/api-server/src/lib/sentinel/chain.ts:142` — Trading wallet is not configured.
+- `artifacts/api-server/src/lib/sentinel/chain.ts:147` — RPC is not Solana mainnet-beta.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:28` — Pool age evidence unavailable.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:35` — Top-10 holder supply unavailable.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:37` — Top-10 holder information unavailable.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:40` — Verified launch creator unavailable; no buy.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:45` — Creator holds over 10% of total supply.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:56` — Incomplete holder account response; retry current evidence.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:58` — Top-10 holder account unavailable; no trade.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:60` — Holder account mint mismatch.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:72` — Holder observations changed/inconsistent; retry current evidence.
+- `artifacts/api-server/src/lib/sentinel/crazy-safety.ts:82` — Observed top-10 non-curve wallet share ${top10Pct.toFixed(2)}% in the largest-20 account sample; must be below ${limit}%.
+- `artifacts/api-server/src/lib/sentinel/curve-policy.ts:71` — Holder concentration beyond verified pool vaults is unavailable.
+- `artifacts/api-server/src/lib/sentinel/dbc-entry-policy.ts:14` — DBC entry blocked: all migration liquidity must be independently verified as permanently locked; creator/partner withdrawable or unverifiable allocations are not accepted.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:77` — Launchpad entries are disabled in Strategy.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:79` — Active curve progress requires 15–40%, or live early Pump burst evidence before 95%.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:81` — Fresh launchpad market/reserve evidence failed entry filters. No buy authorized.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:83` — Assessment is stale. Entry skipped.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:98` — Fractional position budget is below $0.50; do not round up risk.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:101` — Fresh verified leader signal required.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:104` — Owner-enabled copy target required in this risk mode.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:108` — Per-leader allocation cap would be exceeded.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:111` — High-risk acknowledgement required.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:115` — A qualified strategy or fresh watchlist AI BUY is required.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:117` — SNIPER entry window expired.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:119` — Fresh verified leader signal required.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:123` — Per-leader allocation cap would be exceeded.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:131` — Insufficient spendable SOL after preserving the fee reserve and estimated account rent.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:134` — Native curve entries are disabled in Strategy.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:137` — Quoted output is too small.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:145` — Estimated round-trip trading cost exceeds ${maxRoundTripLossPct}% before network costs.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:150` — Estimated fees, account rent and slippage would already breach the stop loss at this small position size. Entry skipped.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:200` — SNIPER entry window expired.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:223` — Position is not available to close while an order is pending.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:233` — Invalid or below-minimum sell amount.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:240` — No SOL/USD reference has ever been established. Manual position review required.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:455` — Fresh market evidence unavailable.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:484` — Next market scan is due after ${scanMinutes(s.settings)} minute(s).
+- `artifacts/api-server/src/lib/sentinel/engine.ts:572` — Fresh market data unavailable.
+- `artifacts/api-server/src/lib/sentinel/engine.ts:753` — Target market evidence unavailable; no copy authorized.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:48` — Position belongs to a different wallet. Restore its original key before any execution.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:49` — An order is awaiting reconciliation. No duplicate order will be sent.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:52` — Owner stop or protective liquidation blocks new entries.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:54` — 15-minute watch deadline expired; no buy authorized.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:59` — Only SOL→token and token→SOL settlement is authorized.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:61` — Fresh SOL/USD reference missing.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:71` — Launchpad entries are disabled in Strategy.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:74` — Active launchpad entries require their verified native protocol route; aggregator buys are disabled.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:87` — Requested swap exceeds the authorized principal or remaining token quantity.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:90` — Expired or unsupported atomic swap route.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:93` — Native curve entries are disabled in Strategy.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:97` — Transaction address lookup table unavailable.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:125` — Unsupported transaction program. Refusing signature.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:126` — Unsupported System Program instruction.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:128` — Token approval/authority instruction is not permitted.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:133` — Direct Raydium must contain one verifiable exact-input swap.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:135` — Native curve must contain one verifiable exact-input swap.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:141` — Primary RPC did not provide a valid transaction expiry.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:147` — Mint program or Token-2022 extensions are unsupported. Refusing signature.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:155` — Swap exceeds the supported simulation account budget.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:159` — Network fee could not be verified. Refusing signature.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:165` — Transaction simulation failed or returned incomplete wallet balances.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:176` — Simulation would consume the permanent 1% reserve. Refresh wallet balances; no signature authorized.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:178` — Swap must settle to native SOL, not leave or consume an existing WSOL balance.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:187` — Jito tip simulation mismatch; nothing signed.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:191` — Simulation changes do not match the authorized native SOL swap.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:193` — Network fees/account rent exceed the hard 0.005 SOL overhead cap, excluding the authorized swap principal.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:195` — Quote expired during validation. Nothing signed.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:196` — This buy would consume the protected SOL fee reserve.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:197` — Exit would cost more native SOL in fees than it returns. Manual dust-position review required.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:200` — Migration provenance changed during simulation.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:220` — The fallback buy fails its own reverse-route / round-trip-cost check.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:232` — Owner stop or protective liquidation arrived before signing.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:234` — Quote expired before signing. Nothing signed.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:238` — Watch deadline expired during simulation; no signature authorized.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:242` — Durable-nonce swaps are unsupported; nothing signed.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:289` — Order position missing. Manual reconciliation required.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:328` — Configured signer changed or transaction payer mismatch. Manual reconciliation is required.
+- `artifacts/api-server/src/lib/sentinel/execution.ts:396` — Wallet unavailable for reconciliation.
+- `artifacts/api-server/src/lib/sentinel/exit-policy.ts:15` — The first two tiers must leave a moon bag.
+- `artifacts/api-server/src/lib/sentinel/exit-policy.ts:18` — Profit tiers must leave a remainder.
+- `artifacts/api-server/src/lib/sentinel/exit-policy.ts:26` — Original confirmed token quantity is unavailable.
+- `artifacts/api-server/src/lib/sentinel/exit-policy.ts:28` — Invalid original/remaining token quantities.
+- `artifacts/api-server/src/lib/sentinel/fomo.ts:21` — Fresh Fomo-reported daily leaderboard unavailable; no computed-board substitution.
+- `artifacts/api-server/src/lib/sentinel/fomo.ts:33` — No usable linked Solana wallets in the public Fomo daily top ten.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:22` — Graduated Jupiter entry requires one unsplit canonical PumpSwap SOL→token hop; other pools/routes are unsupported.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:32` — Graduated provenance is stale or not locally authorized; acquire a fresh quote.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:49` — Encoded Jupiter route does not match the single PumpSwap exact-input authorization.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:52` — Graduated transaction must be unsigned.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:54` — Graduated transaction must contain exactly one Jupiter swap.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:67` — Encoded Jupiter wallet, token-account, mint or platform-fee binding mismatch.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:69` — Encoded Jupiter swap does not bind the verified PumpSwap pool/vaults.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:74` — Graduated simulation lacks inner-instruction provenance.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:82` — Simulation did not execute exactly one canonical PumpSwap buy.
+- `artifacts/api-server/src/lib/sentinel/graduated-route-policy.ts:87` — Simulation used a different PumpSwap pool or vault.
+- `artifacts/api-server/src/lib/sentinel/historical-pump.ts:16` — Unsupported history response
+- `artifacts/api-server/src/lib/sentinel/http.ts:5` — Market provider returned HTTP ${r.status}. No trade authorized.
+- `artifacts/api-server/src/lib/sentinel/jito.ts:11` — Jito unavailable
+- `artifacts/api-server/src/lib/sentinel/jito.ts:13` — Jito response unavailable
+- `artifacts/api-server/src/lib/sentinel/jito.ts:25` — Invalid Jito tip accounts
+- `artifacts/api-server/src/lib/sentinel/jito.ts:31` — Invalid unsigned tip
+- `artifacts/api-server/src/lib/sentinel/jito.ts:38` — Jito bundle identifier unavailable
+- `artifacts/api-server/src/lib/sentinel/launch-discovery.ts:104` — Creation RPC/time budget exhausted
+- `artifacts/api-server/src/lib/sentinel/launch-events.ts:46` — Moonit creation account evidence unavailable; keep cursor.
+- `artifacts/api-server/src/lib/sentinel/launch-events.ts:73` — Creation account evidence unavailable; retry the signature.
+- `artifacts/api-server/src/lib/sentinel/launchpad-entry.ts:31` — Launchpad-only entry blocked: ${error instanceof TradingError ? error.message : "Current on-chain Pump.fun provenance/provider verification failed."} Ordinary pools, DBC and unverified launchpads are excluded.
+- `artifacts/api-server/src/lib/sentinel/launchpad-entry.ts:43` — Launchpad-only entry blocked: current Pump.fun mint/curve authority proof unavailable or invalid.
+- `artifacts/api-server/src/lib/sentinel/launchpad-entry.ts:47` — Pump.fun phase changed during verification; retry.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:12` — Invalid curve amounts or slippage.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:14` — Curve output rounds to zero.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:19` — Moonit exact input/minimum output instruction mismatch.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:29` — Unsupported curve instruction or encoded exact input/minimum output mismatch.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:36` — Launchpad program is not executable.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:39` — Unsupported launchpad program loader.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:46` — Unverified launchpad ProgramData linkage.
+- `artifacts/api-server/src/lib/sentinel/launchpad-policy.ts:56` — Curve build is not the locally verified unsigned transaction.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:15` — Pump simulation omitted required state accounts.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:18` — Pump rent account owner/layout is unsupported.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:21` — Pump volume account authority mismatch.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:26` — Unexpected volume-account funding.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:28` — Unexpected volume-account lamport movement.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:47` — PumpSwap rent state owner unavailable or changed.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:49` — Unsupported PumpSwap rent layout.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:51` — PumpSwap volume authority mismatch.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:55` — Unexpected PumpSwap state funding.
+- `artifacts/api-server/src/lib/sentinel/launchpad-rent.ts:57` — Unexpected PumpSwap state lamport movement.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:20` — Curve builder must contain exactly one supported swap.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:28` — Curve transaction exceeds atomic packet size.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:34` — Invalid native curve request.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:36` — Native launchpad routes require verified Solana mainnet-beta.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:46` — Only verified active Pump.fun launchpad buys are approved. DBC, unknown launchpads and ordinary pools are excluded.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:62` — Pump quote exceeds independent constant-product or real-reserve bounds.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:80` — Chain clock unavailable for DBC fee schedule.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:82` — DBC pool not yet active.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:90` — DBC quote exceeds real reserves or includes a referral.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:100` — Curve quote violates its independently read spot-price bound.
+- `artifacts/api-server/src/lib/sentinel/launchpad-routes.ts:111` — Curve state expired while quoting/building.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:17` — Curve vault program mismatch.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:20` — Curve vault mint, authority or delegate is invalid.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:27` — No verified Pump.fun curve.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:32` — Completed, empty, non-SOL or unsupported Pump curve mode.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:33` — Pump reserves and accrued fees exceed native SOL holdings.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:36` — Pump real reserves exceed its verified token vault.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:40` — Unverified Pump global/fee configuration.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:48` — No Meteora DBC pool for this mint.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:53` — Unverified or transfer-hook DBC state.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:61` — Completed, empty, non-SOL or unverified DBC curve.
+- `artifacts/api-server/src/lib/sentinel/launchpad-state.ts:67` — DBC reserves exceed verified vault balances.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:22` — Pool discovery unavailable.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:26` — No supported SOL pool with provable permanent LP protection found.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:28` — Pool account unavailable.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:30` — Unsupported LP-lock protocol. A website lock badge cannot authorize a buy.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:32` — Unsupported or non-trading Raydium pool state.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:36` — Pool does not contain the exact token and native SOL.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:41` — Pool authority bump mismatch.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:44` — Unsupported LP mint.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:46` — LP mint authorities are not controlled exclusively by the verified pool.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:50` — Pool vault is empty, delegated, frozen, closeable or has the wrong authority.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:51` — Pool vault mint mismatch.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:53` — LP accounting changed or is unsupported.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:61` — LP custody mint mismatch.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:66` — LP is not fully burned or permanently inaccessible. Partial burns, expiring/unknown lockers and removable LP are blocked.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:69` — Verified pool opening time unavailable.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:77` — LP-protected buys require a single direct route through the independently verified pool.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:90` — Encoded swap pool/vaults do not match the verified LP protection.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:93` — LP-protected entry contains an unsupported program or opaque router.
+- `artifacts/api-server/src/lib/sentinel/locked-pool.ts:95` — LP-protected entry must contain exactly one verified direct swap.
+- `artifacts/api-server/src/lib/sentinel/market.ts:31` — SOL/USD price is unavailable; native sizing is blocked.
+- `artifacts/api-server/src/lib/sentinel/market.ts:35` — No fresh SOL/USD reference price. No trade authorized.
+- `artifacts/api-server/src/lib/sentinel/market.ts:80` — Invalid Jupiter token feed.
+- `artifacts/api-server/src/lib/sentinel/market.ts:109` — Invalid pool data.
+- `artifacts/api-server/src/lib/sentinel/market.ts:139` — DEX Screener and Jupiter market data unavailable. No entry authorized.
+- `artifacts/api-server/src/lib/sentinel/market.ts:187` — Discovery providers unavailable. Known-token history is retained for retry.
+- `artifacts/api-server/src/lib/sentinel/moonit-routes.ts:20` — Moonit quote exceeds independently verified constant-product/real reserves.
+- `artifacts/api-server/src/lib/sentinel/moonit-routes.ts:43` — Moonit quote expired.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:19` — Moonit curve program ownership unavailable.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:24` — Unsupported Moonit curve/currency/decimals/mint/PDA. Flat, anti-snipe, linear and V2 variants are disabled.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:28` — Moonit curve completed/migrating or nonstandard threshold.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:32` — Moonit global controls unavailable.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:38` — Moonit controls/fees unsupported or creator can control migration/configuration.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:57` — Moonit creator/creation transaction proof missing; no entry.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:71` — Moonit supports legacy SPL tokens only.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:73` — Moonit creator/creation transaction proof missing; no entry.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:78` — Moonit token vault unavailable.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:81` — Moonit vault supply/authority/delegate/lock evidence invalid.
+- `artifacts/api-server/src/lib/sentinel/moonit-state.ts:88` — Moonit collateral reserves or migration fees cannot be independently verified.
+- `artifacts/api-server/src/lib/sentinel/native-accounting.ts:11` — Native buy simulation does not match the exact authorized amounts.
+- `artifacts/api-server/src/lib/sentinel/native-accounting.ts:13` — Native sell simulation does not match the authorized amounts.
+- `artifacts/api-server/src/lib/sentinel/native-accounting.ts:18` — Native cash movement is invalid or not positive.
+- `artifacts/api-server/src/lib/sentinel/pending-expiry.ts:21` — Invalid recorded dispatch expiry.
+- `artifacts/api-server/src/lib/sentinel/pending-expiry.ts:30` — Invalid primary RPC expiry fence.
+- `artifacts/api-server/src/lib/sentinel/pending-expiry.ts:37` — Invalid persisted expiry evidence.
+- `artifacts/api-server/src/lib/sentinel/pending-expiry.ts:39` — Invalid primary finalized block height.
+- `artifacts/api-server/src/lib/sentinel/priority-fees.ts:25` — Provider transaction must be unsigned.
+- `artifacts/api-server/src/lib/sentinel/priority-fees.ts:32` — Invalid compute-unit limit.
+- `artifacts/api-server/src/lib/sentinel/priority-fees.ts:36` — Deprecated compute-budget fee instruction.
+- `artifacts/api-server/src/lib/sentinel/priority-fees.ts:39` — Unsupported compute-unit limit.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:26` — Graduated entry: completed official Pump.fun origin is not proven.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:29` — Graduated entry: unsupported Pump.fun migration mode.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:32` — Graduated entry: token mint/freeze authority, supply or extension checks failed.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:33` — Pump.fun migration pending: canonical PumpSwap pool is unavailable. Legacy Raydium and other pools are unsupported.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:41` — Graduated entry: unsupported/noncanonical PumpSwap state or controls.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:47` — Graduated entry: canonical LP mint/vault derivation mismatch.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:51` — Graduated pool vault token program mismatch.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:54` — Graduated pool vault is empty, frozen or externally controlled.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:61` — Graduated quote vault WSOL reserves are not backed by real lamports.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:66` — Graduated LP mint program unsupported.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:69` — Graduated LP mint extension layout unsupported.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:71` — Graduated LP supply is removable, freezeable or not controlled by the canonical pool.
+- `artifacts/api-server/src/lib/sentinel/pump-graduated.ts:75` — PumpSwap provider/state unavailable or buys/sells disabled by protocol.
+- `artifacts/api-server/src/lib/sentinel/pump-live-feed.ts:25` — Pump feed requires a named secure WebSocket adapter.
+- `artifacts/api-server/src/lib/sentinel/pump-live-feed.ts:146` — Secondary mint batch unavailable
+- `artifacts/api-server/src/lib/sentinel/pump-live-feed.ts:164` — Mint not yet visible on the secondary RPC.
+- `artifacts/api-server/src/lib/sentinel/pump-observations.ts:59` — Not creation
+- `artifacts/api-server/src/lib/sentinel/pump-observations.ts:64` — Invalid event string
+- `artifacts/api-server/src/lib/sentinel/pump-observations.ts:68` — Truncated creation
+- `artifacts/api-server/src/lib/sentinel/pump-observations.ts:71` — Wrong curve
+- `artifacts/api-server/src/lib/sentinel/pump-observations.ts:78` — Not supported trade
+- `artifacts/api-server/src/lib/sentinel/pump-snapshot.ts:17` — Not a supported Pump.fun curve account
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:22` — Unsupported Raydium router instruction.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:25` — Unsupported Raydium AMM instruction.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:31` — Unsupported Raydium exact-input instruction.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:35` — Encoded swap amounts/minimum output do not match authorization.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:44` — Price impact is unknown or above your limit.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:53` — No valid exact-input native SOL route within the configured limits.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:61` — Only atomic v0 swaps with this wallet as the sole signer/payer are supported.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:73` — Raydium did not return a supported fee-free-referral route.
+- `artifacts/api-server/src/lib/sentinel/route-policy.ts:81` — Raydium minimum output exceeds the allowed slippage.
+- `artifacts/api-server/src/lib/sentinel/routes.ts:34` — Raydium requires an expired, multi-transaction or unsupported swap. Nothing signed.
+- `artifacts/api-server/src/lib/sentinel/routes.ts:43` — Invalid SOL swap request.
+- `artifacts/api-server/src/lib/sentinel/routes.ts:70` — Jupiter returned no atomic unsigned build.
+- `artifacts/api-server/src/lib/sentinel/routes.ts:76` — Graduated Pump.fun Jupiter route rejected: ${e instanceof TradingError ? e.message : "provider quote/build unavailable"}. No alternate pool buy authorized.
+- `artifacts/api-server/src/lib/sentinel/routes.ts:93` — Unsupported Jupiter transaction type.
+- `artifacts/api-server/src/lib/sentinel/routes.ts:102` — Neither Jupiter nor direct Raydium nor a verified native Pump.fun/Meteora DBC curve returned an executable route within your limits. No transaction signed.
+- `artifacts/api-server/src/lib/sentinel/rpc-config.ts:7` — RPC encryption is unavailable. Configure a strong SESSION_SECRET.
+- `artifacts/api-server/src/lib/sentinel/rpc-config.ts:18` — Invalid encrypted RPC configuration.
+- `artifacts/api-server/src/lib/sentinel/rpc-config.ts:43` — Saved RPC cannot be decrypted. Re-enter it in Setup; no fallback was selected.
+- `artifacts/api-server/src/lib/sentinel/rpc-config.ts:48` — Saved RPC cannot be decrypted. Re-enter it in Setup; no fallback was selected.
+- `artifacts/api-server/src/lib/sentinel/rpc-endpoint.ts:42` — Enter a valid HTTPS RPC URL, without surrounding spaces.
+- `artifacts/api-server/src/lib/sentinel/rpc-endpoint.ts:44` — Enter a valid HTTPS RPC URL.
+- `artifacts/api-server/src/lib/sentinel/rpc-endpoint.ts:48` — Use a public HTTPS RPC hostname on port 443. IP addresses, local hosts, URL passwords and fragments are not accepted.
+- `artifacts/api-server/src/lib/sentinel/rpc-endpoint.ts:64` — RPC hostname could not be resolved to a public IPv4 address.
+- `artifacts/api-server/src/lib/sentinel/rpc-endpoint.ts:65` — RPC hostname resolves to a blocked or private network.
+- `artifacts/api-server/src/lib/sentinel/rpc-endpoint.ts:139` — This endpoint is not Solana mainnet-beta. It was not saved.
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:50` — Background RPC unavailable: add a secondary endpoint. Primary remains reserved.
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:74` — Provider HTTP failure
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:76` — Provider unavailable
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:83` — Optional background request cancelled.
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:85` — RPC provider unavailable; retrying healthy alternatives.
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:96` — RPC mainnet verification failed.
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:105` — RPC slot freshness verification failed.
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:155` — No healthy RPC available for the existing signed transaction.
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:163` — Unexpected transaction signature
+- `artifacts/api-server/src/lib/sentinel/rpc-pool.ts:166` — Submission response unknown. Reconcile the original signature; never create a replacement order.
+- `artifacts/api-server/src/lib/sentinel/rpc-websocket.ts:66` — RPC log transport is closed.
+- `artifacts/api-server/src/lib/sentinel/rpc-websocket.ts:122` — RPC hostname is not public.
+- `artifacts/api-server/src/lib/sentinel/store.ts:89` — Bot is processing an operation. Stop requests are latched immediately; retry other actions shortly.
+- `artifacts/api-server/src/lib/sentinel/store.ts:162` — Legacy USDC exposure requires manual reconciliation before SOL migration. No automatic conversion or trading is allowed.
+- `artifacts/api-server/src/lib/sentinel/token-entry.ts:12` — Entry blocked: ${e instanceof TradingError ? e.message : "LP pool/provider verification unavailable."}
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:13` — Truncated Token-2022 TLV header.
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:16` — Invalid, duplicate or truncated Token-2022 extension.
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:19` — Invalid metadata pointer length.
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:21` — Invalid token metadata length.
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:26` — Uninitialized mint or active mint/freeze authority.
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:27` — Invalid supply or unsupported decimals.
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:31` — Unsupported Token-2022 extension (${extension}). Transfer fees, hooks, delegates, restrictions and unknown extensions are blocked.
+- `artifacts/api-server/src/lib/sentinel/token-policy.ts:36` — Only SPL Token and supported Token-2022 mints are allowed.
+- `artifacts/api-server/src/lib/sentinel/transaction-policy.ts:26` — Swap touches an unauthorized wallet token account, owner or delegate.
+- `artifacts/api-server/src/lib/sentinel/transaction-policy.ts:30` — Unexpected token account ownership/program change.
+- `artifacts/api-server/src/lib/sentinel/wallet-reconciliation.ts:11` — Invalid wallet token balance; ledger unchanged.
+- `artifacts/api-server/src/lib/sentinel/wallet-reconciliation.ts:18` — Invalid wallet token balance; ledger unchanged.
+- `artifacts/api-server/src/lib/sentinel/wallet-reconciliation.ts:55` — A transaction is pending. Reconcile it before refreshing token holdings.
+- `artifacts/api-server/src/lib/sentinel/wallet-reconciliation.ts:67` — Unexpected wallet token account program; balances not applied.
+- `artifacts/api-server/src/lib/sentinel/wallet-reconciliation.ts:69` — Wallet token authority mismatch; balances not applied.
+- `artifacts/api-server/src/routes/rpc-connection.ts:43` — RPC endpoints must be distinct.
+- `artifacts/api-server/src/routes/rpc-connection.ts:60` — RPC endpoints must be distinct.
+- `artifacts/api-server/src/routes/rpc-connection.ts:62` — RPC endpoints must be distinct after URL normalization.
+- `artifacts/api-server/src/routes/rpc-connection.ts:67` — Pause entries and reconcile pending transactions before switching RPC.
+- `artifacts/api-server/src/routes/rpc-connection.ts:84` — Pause entries and reconcile pending transactions before switching RPC.
+- `artifacts/api-server/src/routes/sentinel.ts:151` — Settings are locked during transaction reconciliation.
+- `artifacts/api-server/src/routes/sentinel.ts:152` — Pause new entries before editing settings.
+- `artifacts/api-server/src/routes/sentinel.ts:153` — Close existing positions before changing modes.
+- `artifacts/api-server/src/routes/sentinel.ts:154` — Close existing positions before switching risk modes.
+- `artifacts/api-server/src/routes/sentinel.ts:191` — Pause and close all positions before resetting paper trading.
+- `artifacts/api-server/src/routes/sentinel.ts:198` — Review Strategy and acknowledge risks and operating costs before starting.
+- `artifacts/api-server/src/routes/sentinel.ts:199` — High-risk mode requires a separate acknowledgement.
+- `artifacts/api-server/src/routes/sentinel.ts:233` — Token market not found.
+- `artifacts/api-server/src/routes/sentinel.ts:284` — Position not found.
+- `artifacts/api-server/src/routes/sentinel.ts:296` — Pause entries before verifying or switching wallets.
+- `artifacts/api-server/src/routes/sentinel.ts:298` — Close all live positions and reconcile pending transactions using the ORIGINAL key before changing wallets. No funds or history were moved.
+- `artifacts/mockup-sandbox/src/components/ui/carousel.tsx:37` — useCarousel must be used within a <Carousel />
+- `artifacts/mockup-sandbox/src/components/ui/chart.tsx:28` — useChart must be used within a <ChartContainer />
+- `artifacts/mockup-sandbox/src/components/ui/form.tsx:46` — useFormField should be used within <FormField>
+- `artifacts/mockup-sandbox/src/components/ui/form.tsx:50` — useFormField should be used within <FormItem>
+- `artifacts/mockup-sandbox/src/components/ui/sidebar.tsx:50` — useSidebar must be used within a SidebarProvider.
+- `artifacts/solana-sentinel/src/components/ui/carousel.tsx:36` — useCarousel must be used within a <Carousel />
+- `artifacts/solana-sentinel/src/components/ui/chart.tsx:28` — useChart must be used within a <ChartContainer />
+- `artifacts/solana-sentinel/src/components/ui/form.tsx:47` — useFormField should be used within <FormField>
+- `artifacts/solana-sentinel/src/components/ui/form.tsx:51` — useFormField should be used within <FormItem>
+- `artifacts/solana-sentinel/src/components/ui/sidebar.tsx:49` — useSidebar must be used within a SidebarProvider.
+- `artifacts/solana-sentinel/src/lib/owner-session.tsx:57` — Owner session provider missing.
+- `lib/api-client-react/src/custom-fetch.ts:316` — Blob responses are not supported in this runtime. 
+- `lib/api-client-react/src/custom-fetch.ts:335` — customFetch: ${method} requests cannot have a body.
+- `lib/db/src/index.ts:8` — DATABASE_URL must be set. Did you forget to provision a database?
+- `lib/integrations-openai-ai-server/src/audio/client.ts:10` — AI_INTEGRATIONS_OPENAI_BASE_URL must be set. Did you forget to provision the OpenAI AI integration?
+- `lib/integrations-openai-ai-server/src/audio/client.ts:16` — AI_INTEGRATIONS_OPENAI_API_KEY must be set. Did you forget to provision the OpenAI AI integration?
+- `lib/integrations-openai-ai-server/src/client.ts:4` — AI_INTEGRATIONS_OPENAI_BASE_URL must be set. Did you forget to provision the OpenAI AI integration?
+- `lib/integrations-openai-ai-server/src/client.ts:10` — AI_INTEGRATIONS_OPENAI_API_KEY must be set. Did you forget to provision the OpenAI AI integration?
+- `lib/integrations-openai-ai-server/src/image/client.ts:6` — AI_INTEGRATIONS_OPENAI_BASE_URL must be set. Did you forget to provision the OpenAI AI integration?
+- `lib/integrations-openai-ai-server/src/image/client.ts:12` — AI_INTEGRATIONS_OPENAI_API_KEY must be set. Did you forget to provision the OpenAI AI integration?
